@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+#python
+__pycache__/
+*.py[cod]
+
+# database
+*.db
+
+# vscode
+.vscode/
+
