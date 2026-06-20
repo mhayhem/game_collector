@@ -4,6 +4,7 @@ class Game:
             status: str, img_url: str, game_id: int | None = None, user_id: int | None = None) -> None:
         
         self.game_id = game_id
+        self.user_id = user_id
         self.title = title
         self.genre = genre
         self.platform = platform

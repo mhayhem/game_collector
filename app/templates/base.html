@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Description" content="Gestor colección videojuegos">
+    <title>
+        {% block title %}
+        Game Collector
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Game Collector</h1>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>©copyright   creado por Mhayhemdev 2026 </p>
+    </footer>
+</body>
+</html>
