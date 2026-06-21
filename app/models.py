@@ -17,8 +17,9 @@ class Game:
 
 
 class User:
-    def __init__(self, username: str, password_hash: str, user_id: int | None = None) -> None:
+    def __init__(self, username: str, password_hash: str, email: str, user_id: int | None = None) -> None:
         self.user_id = user_id
         self.username = username
         self.password_hash = password_hash
+        self.email = email
 
