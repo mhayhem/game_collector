@@ -6,5 +6,14 @@ def get_all_games():
     connection.close()
     return games
 
-
+def update_status(new_status: str, game_id: int):
+    with get_connection() as connection:
+        connection.execute("""
+            UPDATE games
+            SET status = ?
+            WHERE game_id = ?;
+            """,
+            (new_status, game_id)
+        )
+    connection.commit()
 
