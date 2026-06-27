@@ -23,3 +23,5 @@ class User:
         self.password_hash = password_hash
         self.email = email
 
+    def __str__(self) -> str:
+        return f"Usuario: {self.username} Email: {self.email}"
