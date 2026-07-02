@@ -1,4 +1,5 @@
-from app.database import get_connection
+from database import get_connection
+from models import User
 
 def get_all_games():
     connection = get_connection()
@@ -17,3 +18,13 @@ def update_status(new_status: str, game_id: int):
         )
     connection.commit()
 
+# última función 
+def create_user(user: User):
+    with get_connection() as connection:
+        connection.execute(
+            """
+            INSERT users (username, password_hash, email)
+            VALUES (? , ?, ?);
+            """
+        )
+    connection.close()
