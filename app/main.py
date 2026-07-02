@@ -4,7 +4,8 @@ from routers import games
 
 app = FastAPI()
 
+# routers
+app.include_router(games.router)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-app.include_router(games.router)

@@ -1,4 +1,4 @@
-from database import get_connection
+from db_script import get_connection
 from models import User
 
 def get_all_games():
@@ -23,8 +23,9 @@ def create_user(user: User):
     with get_connection() as connection:
         connection.execute(
             """
-            INSERT users (username, password_hash, email)
+            INSERT users (username,  email, password_hash)
             VALUES (? , ?, ?);
-            """
+            """,
+            (user.username, user.email ,user.password_hash)
         )
     connection.close()
