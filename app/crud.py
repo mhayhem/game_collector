@@ -40,6 +40,19 @@ def get_game_by_name(title: str) -> Game| None:
         img_url=row["img_url"]
     )
 
+
+# create Game
+
+def create_game_object(title: str, genre: str, platform: str, game_format: str | None, status: str, img_url: str):
+    with get_connection() as connection: # refactorizar en una función externa
+        connection.execute(
+            """
+            INSER INTO games (title, genre, platform, game_format, status, img_utl)
+            VALUES (?, ?, ?, ?, ?, ?);
+            """,
+            (title, genre, platform, game_format, status, img_url)
+        )
+
 # modify data
 
 def update_status(new_status: str, game_id: int):
@@ -98,9 +111,8 @@ def create_user(user: User):
     with get_connection() as connection: # refactorizar en una función externa
         connection.execute(
             """
-            INSERT users (username,  email, password_hash)
-            VALUES (? , ?, ?);x
+            INSERT INTO users (username,  email, password_hash)
+            VALUES (? , ?, ?);
             """,
             (user.username, user.email ,user.password_hash)
         )
-    connection.close()
