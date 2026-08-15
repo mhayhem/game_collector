@@ -1,6 +1,13 @@
 from db_script import get_connection
 from models import User, Game
 
+
+def _row_to_game(row):
+    return Game.model_validate(row)
+
+def _row_to_user(row):
+    return User.model_validate(row)
+
 # get information to db
 
 def get_all_games() -> list[Game]:
@@ -8,16 +15,7 @@ def get_all_games() -> list[Game]:
         rows = connection.execute("SELECT * FROM games").fetchall()
     
     # refactorizar en una función externa
-    return [Game(
-        game_id=row["game_id"],
-        user_id=row["user_id"],
-        title=row["title"],
-        genre=row["genre"],
-        platform=row["platform"],
-        game_format=row["game_format"],
-        status=row["status"],
-        img_url=row["img_url"]) for row in rows
-        ]
+    return [_row_to_game(row) for row in rows]
 
 def get_game_by_name(title: str) -> Game| None:
     with get_connection() as connection: # refactorizar en una función externa

@@ -1,27 +1,42 @@
-class Game:
-    def __init__(
-            self, title: str, genre: str, platform: str, game_format: str, 
-            status: str, img_url: str, game_id: int | None = None, user_id: int | None = None) -> None:
-        
-        self.game_id = game_id
-        self.user_id = user_id
-        self.title = title
-        self.genre = genre
-        self.platform = platform
-        self.game_format = game_format
-        self.status = status
-        self.img_url = img_url
+from enum import Enum
+from pydantic import BaseModel
+
+
+class Platform(Enum):
+    ps = "Playstation"
+    ps2 = "Playstation 2"
+    ps3 = "Playstation 3"
+    ps4 = "Playstation 4"
+    ps5 = "Playstation 5"
+    psp = "Playstation Portable"
+    psv = "Playstation Vita"
+
+
+class GameFormat(Enum):
+    physical = "Fisico"
+    digital = "Digital"
+
+
+class GameStatus(Enum):
+    purchased = "Comprado"
+    unpurchased = "Sin comprar"
     
-    def __str__(self) -> str:
-        return f"{self.title} ({self.platform}) {self.status}"
+
+class Game(BaseModel):
+    game_id = int
+    user_id = int
+    title = str
+    genre = str
+    platform = Enum
+    game_format = Enum
+    status = Enum
+    img_url = str
+
+class User(BaseModel):
+    user_id = int
+    username = str
+    email = str
 
 
-class User:
-    def __init__(self, username: str, password_hash: str, email: str, user_id: int | None = None) -> None:
-        self.user_id = user_id
-        self.username = username
-        self.password_hash = password_hash
-        self.email = email
-
-    def __str__(self) -> str:
-        return f"Usuario: {self.username} Email: {self.email}"
+class UserDB(BaseModel):
+    hashed_password = str
