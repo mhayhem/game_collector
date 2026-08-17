@@ -20,23 +20,37 @@ class GameFormat(Enum):
 class GameStatus(Enum):
     purchased = "Comprado"
     unpurchased = "Sin comprar"
-    
+
+
+class GameCreate(BaseModel):
+    title : str
+    genre : str
+    platform : Platform
+    game_format : GameFormat
+    status : GameStatus
+    img_url : str
 
 class Game(BaseModel):
-    game_id = int
-    user_id = int
-    title = str
-    genre = str
-    platform = Enum
-    game_format = Enum
-    status = Enum
-    img_url = str
+    game_id : int
+    user_id : int
+    title : str
+    genre : str
+    platform : Platform
+    game_format : GameFormat
+    status : GameStatus
+    img_url : str
 
 class User(BaseModel):
-    user_id = int
-    username = str
-    email = str
+    user_id : int
+    username : str
+    email : str
 
 
-class UserDB(BaseModel):
-    hashed_password = str
+class UserDB(User):
+    hashed_password : str
+
+
+class UserSingUp(BaseModel):
+    username : str
+    email : str
+    password : str
