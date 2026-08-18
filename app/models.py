@@ -1,6 +1,6 @@
 from enum import Enum
 from pydantic import BaseModel
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class GameFormat(Enum):
     physical = "Fisico"
@@ -34,3 +34,8 @@ class RegisterUser(BaseModel):
 
 class UserDB(User):
     hashed_password: str
+
+
+class TokenAccess(BaseModel):
+    sub: str
+    exp: timedelta
