@@ -1,4 +1,4 @@
-from models import User, UserSingUp
+from models import User, UserDB, RegisterUser
 from database.db_script import get_connection
 from security.password_hash import hashed_password
 
@@ -42,7 +42,7 @@ def get_user_by_username(username: str) -> User | None:
 
 
 
-def create_user(user: UserSingUp):
+def create_user(user: RegisterUser):
     try:
         CON.execute(
             """
