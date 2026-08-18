@@ -44,13 +44,19 @@ def get_user_by_username(username: str) -> User | None:
 
 def create_user(user: RegisterUser):
     try:
-        CON.execute(
+        cursor = CON.execute(
             """
-            INSERT INTO users (username,  email, password_hash)
+            INSERT INTO users (username, email, password_hash)
             VALUES (? , ?, ?);
             """,
             (user.username, user.email, hashed_password(user.password))
         )
+        
+        if cursor.lastrowid is None:
+            return None
+        return get_user_by_username(user.username)
     
     finally:
         CON.close()
+
+
