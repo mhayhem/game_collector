@@ -1,4 +1,4 @@
-from models import Game, GameFormat, GameStatus, GameCreate
+from models import Game, GameFormat, GameStatus
 from database.db_script import get_connection 
 
 CON = get_connection()
@@ -42,22 +42,20 @@ def get_game_by_id(id: int) -> Game| None:
 
 # create Game
 
-def create_game_object(game: GameCreate, user_id: int) -> Game | None:
+def create_game_object(game: Game) -> Game | None:
     try:
         cursor = CON.execute(
             """
             INSERT INTO games
-            (title, genre, platform, game_format, status, img_url, user_id)
+            (title, genre, developer, year_release, img_url)
             VALUES
-            (?, ?, ?, ?, ?, ?, ?);
+            (?, ?, ?, ?, ?;
             """,
             (game.title,
             game.genre,
-            game.platform,
-            game.game_format,
-            game.status,
-            game.img_url,
-            user_id)
+            game.developer,
+            game.year_release,
+            game.img_url)
         )
         
         CON.commit()
@@ -72,23 +70,3 @@ def create_game_object(game: GameCreate, user_id: int) -> Game | None:
     finally:
         CON.close()
 
-
-# modify data
-
-def update_status(new_status: GameStatus, game_id: int):
-    try:
-        cursor = CON.execute(
-            """
-            UPDATE games
-            SET status = ?
-            WHERE game_id = ?;
-            """,
-            (new_status, game_id)
-            )
-        
-        CON.commit()
-
-        return cursor.rowcount > 0
-    
-    finally:
-        CON.close()
