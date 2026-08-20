@@ -40,6 +40,38 @@ def get_game_by_id(id: int) -> Game| None:
         CON.close()
 
 
+def get_game_by_title(title: str) -> list[Game]:
+    try:
+        rows = CON.execute(
+            """
+            SELECT * 
+            FROM games
+            WHERE title LIKE ?;
+            """,
+            (f"%{title}%")
+        ).fetchall()
+        
+        return [_row_to_game(row) for row in rows]
+        
+    finally:
+        CON.close()
+
+def get_game_owner_collector_by_genre(genre: str) -> list[Game]:
+    try:
+        rows = CON.execute(
+            """ 
+            SELECT * 
+            FROM games
+            WHERE genre = ?;
+            """,
+            (genre,)
+        ).fetchall()
+        
+        return [_row_to_game(row) for row in rows]
+    finally:
+        CON.close()
+
+
 # create Game
 
 def create_game_object(game: Game) -> Game | None:
