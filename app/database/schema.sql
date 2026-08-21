@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
+    disabled BOOLEAN NOT NULL,
     password_hash TEXT NOT NULL
 );
 
