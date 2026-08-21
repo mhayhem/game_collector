@@ -1,10 +1,9 @@
 import jwt
 from datetime import timezone, timedelta, datetime
-from app.models import TokenAccess
 from app.config import SECRET_KEY, ALGORITHM, TIME_EXPIRE_TOKEN
 
 
-def create_token_acces(data: dict, expire_token: timedelta | None = None) -> TokenAccess | None:
+def create_token_acces(data: dict, expire_token: timedelta | None = None):
     to_encode = data.copy()
     
     if expire_token:
@@ -18,4 +17,4 @@ def create_token_acces(data: dict, expire_token: timedelta | None = None) -> Tok
     
     token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     
-    return TokenAccess.model_validate(token)
+    return token

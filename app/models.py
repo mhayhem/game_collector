@@ -36,6 +36,6 @@ class UserDB(User):
     hashed_password: str
 
 
-class TokenAccess(BaseModel):
-    sub: str
-    exp: timedelta
+class AccessToken(BaseModel):
+    access_token: str
+    type_token: str
