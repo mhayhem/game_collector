@@ -1,10 +1,17 @@
 import jwt
+import os
+from dotenv import load_dotenv
 from datetime import timezone, timedelta, datetime
-from app.config import SECRET_KEY, ALGORITHM, TIME_EXPIRE_TOKEN
 
+ALGORITHM = "HS256"
+TIME_EXPIRE_TOKEN = 30
+
+load_dotenv()
 
 def create_token_acces(data: dict, expire_token: timedelta | None = None):
     to_encode = data.copy()
+    
+    secret_key = os.getenv("SECRET_KEY")
     
     if expire_token:
         expire = datetime.now(timezone.utc) + expire_token
@@ -12,9 +19,9 @@ def create_token_acces(data: dict, expire_token: timedelta | None = None):
         expire = datetime.now(timezone.utc) + timedelta(minutes=30)
     
     to_encode.update({"exp": expire})
-    if SECRET_KEY is None:
+    if secret_key is None:
         return None
     
-    token = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    token = jwt.encode(to_encode, secret_key, algorithm=ALGORITHM)
     
     return token

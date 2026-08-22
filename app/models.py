@@ -21,10 +21,18 @@ class Game(BaseModel):
     year_release: datetime
     img_url: str
 
+class PublicUser(BaseModel):
+    user_id: int
+    username: str
+    email: str
+    disabled: bool
+
 class User(BaseModel):
     user_id: int
     username: str
     email: str
+    disabled: bool
+    is_admin: bool
 
 class RegisterUser(BaseModel):
     username: str
